@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile - Rektcord</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      transition: background-color 0.3s, color 0.3s;
+      line-height: 1.4;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background-color: rgba(18, 18, 18, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #00d8ff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    nav ul li:hover {
+      color: #00d8ff;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .wallet-button {
+      padding: 8px 16px;
+      background-color: #00d8ff;
+      border: none;
+      border-radius: 18px;
+      color: #121212;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .wallet-button:hover {
+      background-color: #00b3cc;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 1rem;
+      color: #ffffff;
+      transition: color 0.3s;
+    }
+
+    /* Profile Section */
+    .profile {
+      padding: 80px 30px 30px 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00d8ff;
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-info h1 {
+      font-size: 1.8rem;
+      color: #00d8ff;
+      margin-bottom: 5px;
+    }
+
+    .profile-info h2 {
+      font-size: 1.2rem;
+      color: #cccccc;
+      margin-bottom: 10px;
+    }
+
+    .profile-info p {
+      font-size: 0.9rem;
+      color: #cccccc;
+    }
+
+    /* Achievements Section */
+    .achievements {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .achievements h2 {
+      font-size: 1.6rem;
+      color: #00d8ff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .achievements-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding-bottom: 10px;
+    }
+
+    .achievement-card {
+      flex: 0 0 auto;
+      width: 220px;
+      background-color: #3a3a3a;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0, 216, 255, 0.3);
+    }
+
+    .achievement-image {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .achievement-content {
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .achievement-content h3 {
+      font-size: 1rem;
+      margin-bottom: 3px;
+      color: #00d8ff;
+    }
+
+    .achievement-content p {
+      font-size: 0.8rem;
+      color: #cccccc;
+    }
+
+    .achievement-address {
+      font-size: 0.7rem;
+      color: #00d8ff;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+    }
+
+    .achievement-address:hover {
+      text-decoration: underline;
+    }
+
+    /* Verified Skills Section */
+    .verified-skills {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .verified-skills h3 {
+      font-size: 1.3rem;
+      color: #00d8ff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .verified-skills-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding-bottom: 10px;
+      justify-content: center;
+    }
+
+    .badge-card {
+      flex: 0 0 auto;
+      width: 180px;
+      background-color: #3a3a3a;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .badge-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0, 216, 255, 0.3);
+    }
+
+    .badge-image {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+
+    .badge-content {
+      padding: 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge-content h3 {
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+      color: #00d8ff;
+    }
+
+    .badge-content p {
+      font-size: 0.7rem;
+      color: #cccccc;
+    }
+
+    .badge-address {
+      font-size: 0.6rem;
+      color: #00d8ff;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+    }
+
+    .badge-address:hover {
+      text-decoration: underline;
+    }
+
+    /* Unverified Skills Section */
+    .unverified-skills {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .unverified-skills h3 {
+      font-size: 1.3rem;
+      color: #00d8ff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .unverified-skills-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding-bottom: 10px;
+      justify-content: center;
+    }
+
+    .unverified-card {
+      flex: 0 0 auto;
+      width: 150px;
+      background-color: #3a3a3a;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #cccccc;
+      cursor: default;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .unverified-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 216, 255, 0.2);
+    }
+
+    /* Job History Section */
+    .job-history {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .job-history h2 {
+      font-size: 1.6rem;
+      color: #00d8ff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .job-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .job-list li {
+      background-color: #3a3a3a;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .job-title {
+      font-size: 1rem;
+      color: #00d8ff;
+      margin-bottom: 3px;
+    }
+
+    .job-company {
+      font-size: 0.8rem;
+      color: #cccccc;
+      margin-bottom: 3px;
+    }
+
+    .job-duration {
+      font-size: 0.7rem;
+      color: #888888;
+      margin-bottom: 8px;
+    }
+
+    .job-description {
+      font-size: 0.8rem;
+      color: #cccccc;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1e1e1e;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+      font-size: 0.8rem;
+    }
+
+    .footer-links a:hover {
+      color: #00d8ff;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      font-size: 1rem;
+    }
+
+    .newsletter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .newsletter input {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 18px;
+      outline: none;
+      width: 180px;
+      font-size: 0.8rem;
+    }
+
+    .newsletter button {
+      padding: 8px 16px;
+      background-color: #00d8ff;
+      border: none;
+      border-radius: 18px;
+      color: #121212;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .newsletter button:hover {
+      background-color: #00b3cc;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #f5f5f5;
+      color: #121212;
+    }
+
+    body.dark-mode header {
+      background-color: rgba(245, 245, 245, 0.95);
+    }
+
+    body.dark-mode .logo, 
+    body.dark-mode nav ul li,
+    body.dark-mode .profile h1,
+    body.dark-mode .profile h2,
+    body.dark-mode .profile p,
+    body.dark-mode .skills h2,
+    body.dark-mode .skills-category h3,
+    body.dark-mode .skills-list li,
+    body.dark-mode .achievements h2,
+    body.dark-mode .achievements-list li,
+    body.dark-mode .achievement-details h3,
+    body.dark-mode .achievement-details p,
+    body.dark-mode .job-history h2,
+    body.dark-mode .job-list li,
+    body.dark-mode .job-title,
+    body.dark-mode .job-company,
+    body.dark-mode .job-duration,
+    body.dark-mode .job-description,
+    body.dark-mode footer {
+      color: #121212;
+    }
+
+    body.dark-mode .wallet-button,
+    body.dark-mode .newsletter button {
+      background-color: #00d8ff;
+      color: #121212;
+    }
+
+    body.dark-mode .wallet-button:hover,
+    body.dark-mode .newsletter button:hover {
+      background-color: #00b3cc;
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(18, 18, 18, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      padding: 20px;
+      position: relative;
+      color: #ffffff;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .modal-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #00d8ff;
+    }
+
+    .modal-details p {
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: #cccccc;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .modal-actions a, .modal-actions button {
+      padding: 6px 12px;
+      background-color: #00d8ff;
+      border: none;
+      border-radius: 15px;
+      color: #121212;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    .modal-actions a:hover, .modal-actions button:hover {
+      background-color: #00b3cc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 15px;
+      }
+
+      .profile {
+        padding: 80px 15px 15px 15px;
+      }
+
+      .profile-header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+      }
+
+      .profile-info h1 {
+        font-size: 1.6rem;
+        text-align: center;
+      }
+
+      .profile-info h2 {
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .achievements-gallery, .verified-skills-gallery, .unverified-skills-gallery {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .achievement-card, .badge-card, .unverified-card {
+        width: 180px;
+      }
+
+      .newsletter input {
+        width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Rektcord</div>
+    <nav>
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="ourplan.html">Our Plan</a></li>
+        <li><a href="profile.html">Profile Example</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="wallet-button">Connect Wallet</button>
+      <i class="fas fa-moon theme-toggle" title="Toggle Theme"></i>
+    </div>
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile">
+    <div class="profile-header">
+      <img src="https://via.placeholder.com/100" alt="User Avatar" class="profile-avatar">
+      <div class="profile-info">
+        <h1>John Doe</h1>
+        <h2>Professional Gamer & Developer</h2>
+        <p>
+          Passionate gamer with over 5 years of experience in competitive gaming and a strong background in software development. Dedicated to bridging the gap between gaming achievements and professional opportunities through innovative NFT badge technology on the Ronin sidechain.
+        </p>
+      </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div class="achievements">
+      <h2>Achievements</h2>
+      <div class="achievements-gallery">
+        <!-- Achievement Card 1 -->
+        <div class="achievement-card" onclick="openModal('champion')">
+          <img src="https://via.placeholder.com/220x120.png?text=Champion+2023" alt="Champion 2023" class="achievement-image">
+          <div class="achievement-content">
+            <div>
+              <h3>Champion - Global Gaming Tournament 2023</h3>
+              <p>Secured 1st place in the Global Gaming Tournament.</p>
+            </div>
+            <div>
+              <p>Issued by Tournament Org</p>
+              <div class="achievement-address">
+                <span>0xABC...1234</span>
+                <i class="fas fa-copy"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Achievement Card 2 -->
+        <div class="achievement-card" onclick="openModal('runnerup')">
+          <img src="https://via.placeholder.com/220x120.png?text=Runner-Up+2022" alt="Runner-Up 2022" class="achievement-image">
+          <div class="achievement-content">
+            <div>
+              <h3>Runner-Up - eSports League 2022</h3>
+              <p>Achieved 2nd place in the eSports League.</p>
+            </div>
+            <div>
+              <p>Issued by eSports Org</p>
+              <div class="achievement-address">
+                <span>0xDEF...5678</span>
+                <i class="fas fa-copy"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add more achievement cards as needed -->
+      </div>
+    </div>
+
+    <!-- Verified Skills Section -->
+    <div class="verified-skills">
+      <h3>Verified Skills</h3>
+      <div class="verified-skills-gallery">
+        <!-- Badge Card 1 -->
+        <div class="badge-card" onclick="openModal('piano')">
+          <img src="https://via.placeholder.com/180x100.png?text=Piano+Grade+5" alt="Piano Grade 5 Badge" class="badge-image">
+          <div class="badge-content">
+            <div>
+              <h3>Piano Grade 5</h3>
+              <p>Music Proficiency</p>
+            </div>
+            <div>
+              <p>Issued by Music Academy</p>
+              <div class="badge-address">
+                <span>0xABC...1234</span>
+                <i class="fas fa-copy"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Badge Card 2 -->
+        <div class="badge-card" onclick="openModal('csharp')">
+          <img src="https://via.placeholder.com/180x100.png?text=C%23+Programming" alt="C# Programming Badge" class="badge-image">
+          <div class="badge-content">
+            <div>
+              <h3>C# Programming</h3>
+              <p>Software Development</p>
+            </div>
+            <div>
+              <p>Certified by Code Academy</p>
+              <div class="badge-address">
+                <span>0xDEF...5678</span>
+                <i class="fas fa-copy"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Badge Card 3 -->
+        <div class="badge-card" onclick="openModal('graphicdesign')">
+          <img src="https://via.placeholder.com/180x100.png?text=Graphic+Design" alt="Graphic Design Badge" class="badge-image">
+          <div class="badge-content">
+            <div>
+              <h3>Graphic Design</h3>
+              <p>Creative Skills</p>
+            </div>
+            <div>
+              <p>Certified by Design School</p>
+              <div class="badge-address">
+                <span>0xGHI...9101</span>
+                <i class="fas fa-copy"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add more verified badge cards as needed -->
+      </div>
+    </div>
+
+    <!-- Unverified Skills Section -->
+    <div class="unverified-skills">
+      <h3>Unverified Skills</h3>
+      <div class="unverified-skills-gallery">
+        <!-- Unverified Skill Card 1 -->
+        <div class="unverified-card">
+          HTML & CSS
+        </div>
+        <!-- Unverified Skill Card 2 -->
+        <div class="unverified-card">
+          JavaScript
+        </div>
+        <!-- Unverified Skill Card 3 -->
+        <div class="unverified-card">
+          Team Leadership
+        </div>
+        <!-- Unverified Skill Card 4 -->
+        <div class="unverified-card">
+          Project Management
+        </div>
+        <!-- Unverified Skill Card 5 -->
+        <div class="unverified-card">
+          Data Analysis
+        </div>
+        <!-- Add more unverified skill cards as needed -->
+      </div>
+    </div>
+
+    <!-- Job History Section -->
+    <div class="job-history">
+      <h2>Job History</h2>
+      <ul class="job-list">
+        <li>
+          <div class="job-title">Software Developer</div>
+          <div class="job-company">Tech Innovators Inc.</div>
+          <div class="job-duration">Jan 2021 - Present</div>
+          <div class="job-description">
+            - Developed and maintained web applications using C# and .NET framework.<br>
+            - Collaborated with cross-functional teams to define project requirements and deliverables.<br>
+            - Implemented new features and optimized existing functionalities to enhance user experience.
+          </div>
+        </li>
+        <li>
+          <div class="job-title">Competitive Gamer</div>
+          <div class="job-company">Freelance</div>
+          <div class="job-duration">Mar 2018 - Present</div>
+          <div class="job-description">
+            - Participated in various national and international gaming tournaments.<br>
+            - Achieved top rankings and earned accolades for outstanding performance.<br>
+            - Engaged with the gaming community through streaming and content creation.
+          </div>
+        </li>
+        <!-- Add more job history entries as needed -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <div class="newsletter">
+      <input type="email" placeholder="Your email">
+      <button>Subscribe</button>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="badgeModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <img src="https://via.placeholder.com/600x250.png?text=Badge+Detail" alt="Badge Detail" class="modal-image">
+      <div class="modal-details">
+        <h3>Skill Name</h3>
+        <p><strong>Description:</strong> Detailed information about the skill and its verification.</p>
+        <p><strong>Issued By:</strong> Issuing Authority</p>
+        <p><strong>Date Issued:</strong> YYYY</p>
+        <p><strong>Address:</strong> 0xABC...1234</p>
+      </div>
+      <div class="modal-actions">
+        <button onclick="shareBadge()">Share</button>
+        <a href="#" target="_blank">View on Explorer</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Modal Functionality
+    const modal = document.getElementById('badgeModal');
+
+    function openModal(skill) {
+      // Customize modal content based on the skill or achievement
+      const modalImage = modal.querySelector('.modal-image');
+      const modalTitle = modal.querySelector('.modal-details h3');
+      const modalDescription = modal.querySelector('.modal-details p:nth-of-type(1)');
+      const modalIssuer = modal.querySelector('.modal-details p:nth-of-type(2)');
+      const modalDate = modal.querySelector('.modal-details p:nth-of-type(3)');
+      const modalAddress = modal.querySelector('.modal-details p:nth-of-type(4)');
+      const modalAddressSpan = modal.querySelector('.badge-address span');
+
+      if(skill === 'piano') {
+        modalImage.src = "https://via.placeholder.com/600x250.png?text=Piano+Grade+5";
+        modalTitle.textContent = "Piano Grade 5";
+        modalDescription.innerHTML = "<strong>Description:</strong> Successfully completed Grade 5 in Piano, demonstrating advanced musical proficiency.";
+        modalIssuer.innerHTML = "<strong>Issued By:</strong> Music Academy";
+        modalDate.innerHTML = "<strong>Date Issued:</strong> 2022";
+        modalAddressSpan.textContent = "0xABC...1234";
+      } else if(skill === 'csharp') {
+        modalImage.src = "https://via.placeholder.com/600x250.png?text=C%23+Programming";
+        modalTitle.textContent = "C# Programming";
+        modalDescription.innerHTML = "<strong>Description:</strong> Certified in C# programming, proficient in developing robust software applications.";
+        modalIssuer.innerHTML = "<strong>Issued By:</strong> Code Academy";
+        modalDate.innerHTML = "<strong>Date Issued:</strong> 2023";
+        modalAddressSpan.textContent = "0xDEF...5678";
+      } else if(skill === 'graphicdesign') {
+        modalImage.src = "https://via.placeholder.com/600x250.png?text=Graphic+Design";
+        modalTitle.textContent = "Graphic Design";
+        modalDescription.innerHTML = "<strong>Description:</strong> Certified in Graphic Design, skilled in creating visually appealing designs.";
+        modalIssuer.innerHTML = "<strong>Issued By:</strong> Design School";
+        modalDate.innerHTML = "<strong>Date Issued:</strong> 2023";
+        modalAddressSpan.textContent = "0xGHI...9101";
+      } else if(skill === 'champion') {
+        modalImage.src = "https://via.placeholder.com/600x250.png?text=Champion+2023";
+        modalTitle.textContent = "Champion - Global Gaming Tournament 2023";
+        modalDescription.innerHTML = "<strong>Description:</strong> Secured 1st place in the Global Gaming Tournament, demonstrating exceptional strategy and teamwork.";
+        modalIssuer.innerHTML = "<strong>Issued By:</strong> Tournament Org";
+        modalDate.innerHTML = "<strong>Date Issued:</strong> 2023";
+        modalAddressSpan.textContent = "0xABC...1234";
+      } else if(skill === 'runnerup') {
+        modalImage.src = "https://via.placeholder.com/600x250.png?text=Runner-Up+2022";
+        modalTitle.textContent = "Runner-Up - eSports League 2022";
+        modalDescription.innerHTML = "<strong>Description:</strong> Achieved 2nd place in the eSports League, showcasing consistent performance and skill.";
+        modalIssuer.innerHTML = "<strong>Issued By:</strong> eSports Org";
+        modalDate.innerHTML = "<strong>Date Issued:</strong> 2022";
+        modalAddressSpan.textContent = "0xDEF...5678";
+      } else {
+        // Default content
+        modalImage.src = "https://via.placeholder.com/600x250.png?text=Badge+Detail";
+        modalTitle.textContent = "Skill Detail";
+        modalDescription.innerHTML = "<strong>Description:</strong> Detailed information about the skill and its verification.";
+        modalIssuer.innerHTML = "<strong>Issued By:</strong> Issuing Authority";
+        modalDate.innerHTML = "<strong>Date Issued:</strong> YYYY";
+        modalAddressSpan.textContent = "0xABC...1234";
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      // Toggle icon
+      if (body.classList.contains('dark-mode')) {
+        themeToggle.classList.remove('fa-moon');
+        themeToggle.classList.add('fa-sun');
+      } else {
+        themeToggle.classList.remove('fa-sun');
+        themeToggle.classList.add('fa-moon');
+      }
+    });
+
+    // Wallet Button Placeholder
+    const walletButton = document.querySelector('.wallet-button');
+    walletButton.addEventListener('click', () => {
+      alert('Wallet connection functionality is not implemented yet.');
+    });
+
+    // Newsletter Subscription Placeholder
+    const newsletterButton = document.querySelector('.newsletter button');
+    newsletterButton.addEventListener('click', () => {
+      const email = document.querySelector('.newsletter input').value;
+      if (email) {
+        alert(`Subscribed with email: ${email}`);
+        document.querySelector('.newsletter input').value = '';
+      } else {
+        alert('Please enter a valid email address.');
+      }
+    });
+
+    // Copy Address to Clipboard
+    const badgeAddresses = document.querySelectorAll('.achievement-address, .badge-address');
+
+    badgeAddresses.forEach(elem => {
+      elem.addEventListener('click', () => {
+        const address = elem.querySelector('span').innerText;
+        navigator.clipboard.writeText(address)
+          .then(() => {
+            alert('Address copied to clipboard!');
+          })
+          .catch(err => {
+            console.error('Failed to copy: ', err);
+          });
+      });
+    });
+
+    // Share Badge Functionality (Placeholder)
+    function shareBadge() {
+      alert('Share functionality is not implemented yet.');
+    }
+  </script>
+</body>
+</html>

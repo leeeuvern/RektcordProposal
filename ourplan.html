@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Plan - Rektcord</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      transition: background-color 0.3s, color 0.3s;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      background-color: rgba(18, 18, 18, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #00d8ff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li {
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    nav ul li:hover {
+      color: #00d8ff;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .wallet-button {
+      padding: 10px 20px;
+      background-color: #00d8ff;
+      border: none;
+      border-radius: 20px;
+      color: #121212;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .wallet-button:hover {
+      background-color: #00b3cc;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #ffffff;
+      transition: color 0.3s;
+    }
+
+    /* Whitepaper Section */
+    .whitepaper {
+      padding: 120px 50px 50px 50px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #1e1e1e;
+      border-radius: 15px;
+    }
+
+    .whitepaper h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #00d8ff;
+      text-align: center;
+    }
+
+    .whitepaper h2 {
+      font-size: 2rem;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: #00d8ff;
+    }
+
+    .whitepaper p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #cccccc;
+    }
+
+    .whitepaper ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .whitepaper ul li {
+      margin-bottom: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1e1e1e;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: #00d8ff;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      font-size: 1.2rem;
+    }
+
+    .newsletter {
+      display: flex;
+      gap: 10px;
+    }
+
+    .newsletter input {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      width: 250px;
+    }
+
+    .newsletter button {
+      padding: 10px 20px;
+      background-color: #00d8ff;
+      border: none;
+      border-radius: 20px;
+      color: #121212;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .newsletter button:hover {
+      background-color: #00b3cc;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #f5f5f5;
+      color: #121212;
+    }
+
+    body.dark-mode header {
+      background-color: rgba(245, 245, 245, 0.9);
+    }
+
+    body.dark-mode .logo, 
+    body.dark-mode nav ul li,
+    body.dark-mode .whitepaper h1,
+    body.dark-mode .whitepaper h2,
+    body.dark-mode .whitepaper p,
+    body.dark-mode .whitepaper ul,
+    body.dark-mode footer {
+      color: #121212;
+    }
+
+    body.dark-mode .wallet-button,
+    body.dark-mode .newsletter button {
+      background-color: #00d8ff;
+      color: #121212;
+    }
+
+    body.dark-mode .wallet-button:hover,
+    body.dark-mode .newsletter button:hover {
+      background-color: #00b3cc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 20px;
+      }
+
+      .whitepaper {
+        padding: 100px 20px 20px 20px;
+      }
+
+      .whitepaper h1 {
+        font-size: 2rem;
+      }
+
+      .whitepaper h2 {
+        font-size: 1.5rem;
+      }
+
+      .whitepaper p, .whitepaper ul {
+        font-size: 0.9rem;
+      }
+
+      footer {
+        padding: 30px 20px;
+      }
+
+      .newsletter input {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Rektcord</div>
+    <nav>
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="ourplan.html">Our Plan</a></li>
+        <li><a href="profile.html">Profile Example</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="wallet-button">Connect Wallet</button>
+      <i class="fas fa-moon theme-toggle" title="Toggle Theme"></i>
+    </div>
+  </header>
+
+  <!-- Whitepaper Section -->
+  <section class="whitepaper">
+    <h1>Our Plan</h1>
+
+    <p>
+      Think LinkedIn, but a Web3 platform that gives due respect to scholars.
+    </p>
+    <p>
+      Our vision is to create a shareable profile page linked to an ETH address. The profile page will showcase all the user's achievements, including NFT badges minted and distributed by us through integration with the Web2 leaderboard APIs of Ronin Games.
+    </p>
+    <p>
+      Integrating with Web2 APIs is the foundational idea, but it can be further developed. Personally, I have vast experience in reverse engineering game leaderboard APIs to obtain data and create tools from it. Generally, Web3 games are more than happy for you to do this (although it involves reverse engineering), as the tools created complement the game.
+    </p>
+    <p>
+      I have implemented this for Polygon games such as MetaSoccer and DerbyStars, as well as Ronin Games like Axie Infinity and WildForest. Obtaining data and integrating it will not be an issue. But I guess the main challenge is to create a user-friendly interface and integration process that can be used by the masses. 
+    </p>
+    <p>
+     Further vision -  It is my hope that scholarship for games is not the be-all and end-all of a scholar's journey. Yes, many scholars need this for their daily sustenance, but I also hope they can develop their hard skills, such as coding, graphic design, and more. This can be part two of our vision, where we incentivize educational learning and reward completed learning with NFT badges to verify that they have indeed qualified for these skills. All of this is displayed on a single page: your "Rektcord" (Rekt + record). And yes, I own Rektcord.com—the domain.
+    </p>
+    
+    
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <div class="newsletter">
+      <input type="email" placeholder="Your email">
+      <button>Subscribe</button>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      // Toggle icon
+      if (body.classList.contains('dark-mode')) {
+        themeToggle.classList.remove('fa-moon');
+        themeToggle.classList.add('fa-sun');
+      } else {
+        themeToggle.classList.remove('fa-sun');
+        themeToggle.classList.add('fa-moon');
+      }
+    });
+
+    // Wallet Button Placeholder
+    const walletButton = document.querySelector('.wallet-button');
+    walletButton.addEventListener('click', () => {
+      alert('Wallet connection functionality is not implemented yet.');
+    });
+
+    // Newsletter Subscription Placeholder
+    const newsletterButton = document.querySelector('.newsletter button');
+    newsletterButton.addEventListener('click', () => {
+      const email = document.querySelector('.newsletter input').value;
+      if (email) {
+        alert(`Subscribed with email: ${email}`);
+        document.querySelector('.newsletter input').value = '';
+      } else {
+        alert('Please enter a valid email address.');
+      }
+    });
+  </script>
+</body>
+</html>
